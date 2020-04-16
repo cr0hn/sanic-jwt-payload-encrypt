@@ -21,7 +21,13 @@ app = Sanic()
 app.config.ENCRYPT_PASSWORD = "ASDFAsdfkjalsdfjlkasdfjlkasdjflksaKSKSKS" # USE STRONG PASSWORD!!
 app.config.ENCRYPT_SALT = "ASDFAsdfkjalsdfjlkasdfjlkasdjflksa"  # This is optional But recommendable
 
-Initialize(app, authentication_class=AuthenticationEncrypted)
+async def authenticate(request):
+    return {"user_id": "my name"}
+
+
+Initialize(app,
+           authenticate=authenticate,
+           authentication_class=AuthenticationEncrypted)
 ```
 
 ## Include all User info into encrypted Payload
@@ -30,8 +36,11 @@ Once the Payload is encrypted you may want to include all the User information i
 
 ```python
 
+import uuid
+
 from sanic import Sanic
-from sanic_jwt import AuthenticationEncrypted, Initialize
+from sanic_jwt import Initialize
+from sanic_jwt_payload_encrypt import AuthenticationEncrypted
 
 app = Sanic()
 app.config.ENCRYPT_PASSWORD = "ASDFAsdfkjalsdfjlkasdfjlkasdjflksaKSKSKS"
@@ -49,7 +58,7 @@ class User:
 
 
 async def authenticate(request):
-    return User(user_id=uuid.uuid4().hex, "custom name")
+    return User(user_id=uuid.uuid4().hex, name="custom name")
 
 async def retrieve_user(request, payload, *args, **kwargs):
     return User(**payload)

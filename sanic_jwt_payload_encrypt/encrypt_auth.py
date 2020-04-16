@@ -1,15 +1,5 @@
 """
 This file has a JWT Implementation with encryption of Payload.
-
-Usage is so easy. You must provide ENCRYPT_PASSWORD and (optionally
-ENCRYPT_SALT) into the Sanic app config.
-
->>> from sanic import Sanic
->>> app = Sanic()
->>> app.config.ENCRYPT_PASSWORD = "ASDFAsdfkjalsdfjlkasdfjlkasdjflksa"
->>> import sanic_jwt import AuthenticationEncrypted, Initialize
->>> Initialize(app, authentication_class=AuthenticationEncrypted)
-
 """
 import jwt
 import json
