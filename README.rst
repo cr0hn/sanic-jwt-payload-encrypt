@@ -22,8 +22,8 @@ Sometimes you may want to hide payload content. So it should be useful if you co
     from sanic_jwt_payload_encrypt import AuthenticationEncrypted
 
     app = Sanic()
-    app.config.ENCRYPT_PASSWORD = "ASDFAsdfkjalsdfjlkasdfjlkasdjflksaKSKSKS" # USE STRONG PASSWORD!!
-    app.config.ENCRYPT_SALT = "ASDFAsdfkjalsdfjlkasdfjlkasdjflksa"  # This is optional But recommendable
+    app.config.JWT_ENCRYPT_PASSWORD = "ASDFAsdfkjalsdfjlkasdfjlkasdjflksaKSKSKS" # USE STRONG PASSWORD!!
+    app.config.JWT_ENCRYPT_SALT = "ASDFAsdfkjalsdfjlkasdfjlkasdjflksa"  # This is optional But recommendable
 
     async def authenticate(request):
         return {"user_id": "my name"}
@@ -47,9 +47,9 @@ Once the Payload is encrypted you may want to include all the User information i
     from sanic_jwt_payload_encrypt import AuthenticationEncrypted
 
     app = Sanic()
-    app.config.ENCRYPT_PASSWORD = "ASDFAsdfkjalsdfjlkasdfjlkasdjflksaKSKSKS"
-    app.config.ENCRYPT_SALT = "ASDFAsdfkjalsdfjlkasdfjlkasdjflksa"  # This is optional
-    app.config.FULL_USER_INFO = True
+    app.config.JWT_ENCRYPT_PASSWORD = "ASDFAsdfkjalsdfjlkasdfjlkasdjflksaKSKSKS"
+    app.config.JWT_ENCRYPT_SALT = "ASDFAsdfkjalsdfjlkasdfjlkasdjflksa"  # This is optional
+    app.config.JWT_FULL_USER_INFO = True
 
     class User:
 

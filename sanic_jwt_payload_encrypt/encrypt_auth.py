@@ -167,9 +167,9 @@ class AuthenticationEncrypted(Authentication):
     def __init__(self, app, config):
         super().__init__(app, config)
 
-        self.encrypt_password = app.config.get("ENCRYPT_PASSWORD", None)
-        self.encrypt_salt = app.config.get("ENCRYPT_SALT", None)
-        self.full_user_info = app.config.get("FULL_USER_INFO", False)
+        self.encrypt_password = app.config.get("JWT_ENCRYPT_PASSWORD", None)
+        self.encrypt_salt = app.config.get("JWT_ENCRYPT_SALT", None)
+        self.full_user_info = app.config.get("JWT_FULL_USER_INFO", False)
 
         if not self.encrypt_password:
             raise ValueError("Password not defined! Please set "
