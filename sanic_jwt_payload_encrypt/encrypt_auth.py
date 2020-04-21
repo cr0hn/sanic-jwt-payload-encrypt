@@ -29,7 +29,7 @@ def _get_kdf(salt: str):
     @lru_cache()
     def _get_salt(_salt) -> bytes:
         if _salt:
-            return _salt.encode("UTF.8")
+            return _salt.encode("UTF-8")
         else:
             return b''
 
