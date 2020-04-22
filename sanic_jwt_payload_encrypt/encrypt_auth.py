@@ -41,23 +41,40 @@ def _get_kdf(salt: str):
         backend=default_backend())
 
 
+@lru_cache(200)
+def decode_util(text: str or bytes) -> bytes:
+
+    try:
+        _text = text.encode("UTF-8")
+    except AttributeError:
+        _text = text
+
+    return _text
+
+
 @lru_cache(100)
-def fernet_crypt(text: str or bytes, password: str, salt: str) -> bytes:
+def fernet_crypt(text: str or bytes, password: str, salt: str = None) -> bytes:
     kdf = _get_kdf(salt)
 
-    f = Fernet(base64.urlsafe_b64encode(kdf.derive(bytes(password, "utf-8"))))
+    _text = decode_util(text)
+    _password = decode_util(password)
 
-    return f.encrypt(bytes(text, "utf-8"))
+    f = Fernet(base64.urlsafe_b64encode(kdf.derive(_password)))
+
+    return f.encrypt(_text)
 
 
 @lru_cache(100)
-def fernet_decrypt(text: bytes, password: str, salt: str) -> bytes:
+def fernet_decrypt(text: str or bytes, password: str, salt: str = None) -> bytes:
     kdf = _get_kdf(salt)
+
+    _text = decode_util(text)
+    _password = decode_util(password)
 
     f = Fernet(
-        base64.urlsafe_b64encode(kdf.derive(bytes(password, "utf-8"))))
+        base64.urlsafe_b64encode(kdf.derive(_password)))
 
-    return f.decrypt(text)
+    return f.decrypt(_text)
 
 
 class PyJWTPayloadEncrypt(PyJWT):
