@@ -1,3 +1,5 @@
 from setuptools import setup
 
-setup()
+requirements = open("requirements.txt", "r").readlines()
+
+setup(install_requires=requirements)
