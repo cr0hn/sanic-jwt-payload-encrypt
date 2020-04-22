@@ -24,19 +24,12 @@ from sanic_jwt import Authentication, utils
 from sanic_jwt.authentication import claim_label
 
 
-def _get_kdf(salt: str):
-
-    @lru_cache()
-    def _get_salt(_salt) -> bytes:
-        if _salt:
-            return _salt.encode("UTF-8")
-        else:
-            return b''
+def _get_kdf(salt: bytes):
 
     return PBKDF2HMAC(
         algorithm=hashes.SHA256(),
         length=32,
-        salt=_get_salt(salt),
+        salt=salt or b'',
         iterations=100000,
         backend=default_backend())
 
@@ -53,11 +46,13 @@ def decode_util(text: str or bytes) -> bytes:
 
 
 @lru_cache(100)
-def fernet_crypt(text: str or bytes, password: str, salt: str = None) -> bytes:
-    kdf = _get_kdf(salt)
+def fernet_crypt(text: str, password: str, salt: str = None) -> bytes:
 
+    _salt = decode_util(salt)
     _text = decode_util(text)
     _password = decode_util(password)
+
+    kdf = _get_kdf(_salt)
 
     f = Fernet(base64.urlsafe_b64encode(kdf.derive(_password)))
 
@@ -65,11 +60,12 @@ def fernet_crypt(text: str or bytes, password: str, salt: str = None) -> bytes:
 
 
 @lru_cache(100)
-def fernet_decrypt(text: str or bytes, password: str, salt: str = None) -> bytes:
-    kdf = _get_kdf(salt)
-
+def fernet_decrypt(text: str, password: str, salt: str = None) -> bytes:
+    _salt = decode_util(salt)
     _text = decode_util(text)
     _password = decode_util(password)
+
+    kdf = _get_kdf(_salt)
 
     f = Fernet(
         base64.urlsafe_b64encode(kdf.derive(_password)))
