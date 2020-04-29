@@ -36,7 +36,7 @@ Sometimes you may want to hide payload content. So it should be useful if you co
 Include all User info into encrypted Payload
 --------------------------------------------
 
-Once the Payload is encrypted you may want to include all the User information into Payload. You can do that by setting app config *FULL_USER_INFO*:
+Once the Payload is encrypted you may want to include all the User information into Payload. You can do that by setting app config *JWT_FULL_USER_INFO*:
 
 .. code-block:: python
 
@@ -102,7 +102,7 @@ Now checks if the endpoints returns correct information for the */auth/me* end-p
 Config variables
 ----------------
 
-- ENCRYPT_PASSWORD: Password to use for encrypt the payload
-- ENCRYPT_SALT: Salt used for crypt algorithm
-- FULL_USER_INFO: Indicates if all User information must be included in the encrypted Payload
+- JWT_ENCRYPT_PASSWORD: Password to use for encrypt the payload
+- JWT_ENCRYPT_SALT: Salt used for crypt algorithm
+- JWT_FULL_USER_INFO: Indicates if all User information must be included in the encrypted Payload
 
