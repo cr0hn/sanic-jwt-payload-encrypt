@@ -1,7 +1,12 @@
 Sanic-jwt Payload Encryption plugin
 ===================================
 
-This project is a plugin for great [Sanic-jwt](https://github.com/ahopkins/sanic-jwt) project, allowing encrypt the content of the Payload and include all the User data inside them.
+This project is a plugin for great `Sanic-jwt <https://github.com/ahopkins/sanic-jwt>`_ project, allowing encrypt the content of the Payload and include all the User data inside them.
+
+Support this project
+--------------------
+
+Support this project (to solve issues, new features...) by applying the Github "Sponsor" button.
 
 Install
 -------
